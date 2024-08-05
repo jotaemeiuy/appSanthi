@@ -5,20 +5,8 @@ const PDFDocument = require('pdfkit');
 const db = require('./db');
 const path = require('path');
 const fs = require('fs');
-
-
-if ('serviceWorker' in navigator) {
-    window.addEventListener('load', () => {
-        navigator.serviceWorker.register('/service-worker.js').then(registration => {
-            console.log('Service Worker registrado con éxito: ', registration.scope);
-        }, error => {
-            console.log('Error al registrar el Service Worker: ', error);
-        });
-    });
-}
-
-
 const app = express();
+
 
 // Configura Pug como motor de plantillas
 app.set('view engine', 'pug');
@@ -116,6 +104,10 @@ app.get('/generate-pdf', (req, res) => {
 });
 
 // Iniciar el servidor
-app.listen(3000, () => {
-    console.log('Server running on http://localhost:3000');
+const PORT = process.env.PORT || 3000;
+
+app.listen(PORT, () => {
+    console.log(`Server running on http://localhost:${PORT}`);
 });
+
+
