@@ -1,0 +1,37 @@
+<!-- views/view.pug -->
+doctype html
+html(lang="es")
+  head
+    meta(charset="UTF-8")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    title Ver Entradas
+    link(rel="stylesheet", href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css")
+  body
+    .container.mt-5
+      h1 Entradas
+      
+      // Enlace para volver a la página principal
+      a.btn.btn-secondary(href="/") Volver a la Página Principal
+      
+      table.table
+        thead
+          tr
+            th Fecha
+            th Descripción
+            th Acciones
+        tbody
+          each row in rows
+            tr
+              td #{row.date}
+              td #{row.description}
+              td
+                form(action=`/delete/${row.id}`, method="POST", style="display:inline;")
+                  button.btn.btn-danger Eliminar
+                a.btn.btn-warning(href=`/edit/${row.id}`) Editar
+      a.btn.btn-success(href="/generate-pdf") Generar PDF
+      //- Paginación
+      ul.pagination
+        li.page-item
+          a.page-link(href=`/view?page=${page - 1}`) Anterior
+        li.page-item
+          a.page-link(href=`/view?page=${page + 1}`) Siguiente
